@@ -207,7 +207,6 @@ class User extends \JFusion\Plugin\User
      * @return void
      */
     function updatePassword(Userinfo $userinfo, Userinfo &$existinguser) {
-	    jimport('joomla.user.helper');
 	    $existinguser->password_salt = Framework::genRandomPassword(8);
 	    $existinguser->password = md5($userinfo->password_clear . $existinguser->password_salt);
 	    $db = Factory::getDatabase($this->getJname());
@@ -244,7 +243,6 @@ class User extends \JFusion\Plugin\User
 		    $user->uid = null;
 		    $user->username = $userinfo->username;
 		    $user->email = $userinfo->email;
-		    jimport('joomla.user.helper');
 		    if (isset($userinfo->password_clear)) {
 			    $user->password = $userinfo->password_clear;
 		    } else {
