@@ -61,7 +61,7 @@ class User extends \JFusion\Plugin\User
 			    if (defined('externalpage')) {
 				    define('externalpage', true);
 			    }
-			    require_once $this->params->get('source_path') . 'engine' . DIRECTORY_SEPARATOR . 'start.php';
+			    require_once $this->params->get('source_path') . 'engine/start.php';
 			    // Get variables
 			    global $CONFIG;
 
@@ -97,7 +97,7 @@ class User extends \JFusion\Plugin\User
     	if (defined('externalpage')) {
         	define('externalpage', true);	
         }
-        require_once $this->params->get('source_path') . 'engine' . DIRECTORY_SEPARATOR . 'start.php';
+	    require_once $this->params->get('source_path') . 'engine/start.php';
         // Get variables
         global $CONFIG;
         $user = get_user_by_username($userinfo->username);
@@ -153,7 +153,7 @@ class User extends \JFusion\Plugin\User
             if (defined('externalpage')) {
                 define('externalpage', true);
             }
-            require_once $this->params->get('source_path') . 'engine' . DIRECTORY_SEPARATOR . 'start.php';
+	        require_once $this->params->get('source_path') . 'engine/start.php';
             // Get variables
             global $CONFIG;
             // Action Gatekeep not necessary as person should already be validated by Joomla!
@@ -264,7 +264,7 @@ class User extends \JFusion\Plugin\User
 		    if (defined('externalpage')) {
 			    define('externalpage', true);
 		    }
-		    require_once $this->params->get('source_path') . 'engine' . DIRECTORY_SEPARATOR . 'start.php';
+		    require_once $this->params->get('source_path') . 'engine/start.php';
 		    // Get variables
 		    global $CONFIG;
 		    $username = $user->username;
@@ -336,7 +336,7 @@ class User extends \JFusion\Plugin\User
     	if (defined('externalpage')) {
         	define('externalpage', true);	
         }
-        require_once $this->params->get('source_path') . 'engine' . DIRECTORY_SEPARATOR . 'start.php';
+	    require_once $this->params->get('source_path') . 'engine/start.php';
         // Get variables
         global $CONFIG;
         $user = get_user_by_username($existinguser->username);
@@ -369,7 +369,7 @@ class User extends \JFusion\Plugin\User
     	if (defined('externalpage')) {
         	define('externalpage', true);	
         }
-        require_once $this->params->get('source_path') . 'engine' . DIRECTORY_SEPARATOR . 'start.php';
+	    require_once $this->params->get('source_path') . 'engine/start.php';
         // Get variables
         global $CONFIG;
         $user = get_user_by_username($existinguser->username);
@@ -397,7 +397,7 @@ class User extends \JFusion\Plugin\User
     	if (defined('externalpage')) {
         	define('externalpage', true);	
         }
-        require_once $this->params->get('source_path') . 'engine' . DIRECTORY_SEPARATOR . 'start.php';
+	    require_once $this->params->get('source_path') . 'engine/start.php';
         // Get variables
         global $CONFIG;
         $user = get_user_by_username($existinguser->username);
@@ -425,7 +425,7 @@ class User extends \JFusion\Plugin\User
 		if (defined('externalpage')) {
         	define('externalpage', true);	
         }
-        require_once $this->params->get('source_path') . 'engine' . DIRECTORY_SEPARATOR . 'start.php';
+	    require_once $this->params->get('source_path') . 'engine/start.php';
         // Get variables
         global $CONFIG;
         $user = get_user_by_username($existinguser->username);

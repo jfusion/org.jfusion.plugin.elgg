@@ -48,11 +48,8 @@ class Admin extends \JFusion\Plugin\Admin
     function loadSetup($path)
     {
         //generate the destination file
-        if (substr($path, -1) != DIRECTORY_SEPARATOR) {
-            $myfile = $path . DIRECTORY_SEPARATOR . 'engine' . DIRECTORY_SEPARATOR . 'settings.php';
-        } else {
-            $myfile = $path . 'engine' . DIRECTORY_SEPARATOR . 'settings.php';
-        }
+	    $myfile = $path . 'engine/settings.php';
+
         $config = array();
         //check if the file exists
 	    $lines = $this->readFile($myfile);
@@ -179,7 +176,7 @@ class Admin extends \JFusion\Plugin\Admin
      */
     function allowRegistration()
     {
-        include_once $this->params->get('source_path') . DIRECTORY_SEPARATOR . 'engine' . DIRECTORY_SEPARATOR . 'start.php';
+        include_once $this->params->get('source_path') . 'engine/start.php';
         // Get variables
         global $CONFIG;
         $result = true;
