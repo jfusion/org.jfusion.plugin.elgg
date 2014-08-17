@@ -33,6 +33,11 @@ use \stdClass;
  */
 class Admin extends \JFusion\Plugin\Admin
 {
+	/**
+	 * @var $helper Helper
+	 */
+	var $helper;
+
     /**
      * @return string
      */
@@ -176,7 +181,8 @@ class Admin extends \JFusion\Plugin\Admin
      */
     function allowRegistration()
     {
-        include_once $this->params->get('source_path') . 'engine/start.php';
+	    $this->helper->loadEngine();
+
         // Get variables
         global $CONFIG;
         $result = true;

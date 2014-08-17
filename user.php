@@ -35,6 +35,11 @@ use \stdClass;
  */
 class User extends \JFusion\Plugin\User
 {
+	/**
+	 * @var $helper Helper
+	 */
+	var $helper;
+
     /**
      * @param Userinfo $userinfo
      *
@@ -58,10 +63,7 @@ class User extends \JFusion\Plugin\User
 		    $result = $db->loadObject();
 
 		    if ($result) {
-			    if (defined('externalpage')) {
-				    define('externalpage', true);
-			    }
-			    require_once $this->params->get('source_path') . 'engine/start.php';
+			    $this->helper->loadEngine();
 			    // Get variables
 			    global $CONFIG;
 
@@ -94,10 +96,7 @@ class User extends \JFusion\Plugin\User
 	 */
     function deleteUser(Userinfo $userinfo) {
 	    $deleted = false;
-    	if (defined('externalpage')) {
-        	define('externalpage', true);	
-        }
-	    require_once $this->params->get('source_path') . 'engine/start.php';
+	    $this->helper->loadEngine();
         // Get variables
         global $CONFIG;
         $user = get_user_by_username($userinfo->username);
@@ -150,10 +149,7 @@ class User extends \JFusion\Plugin\User
         if (!empty($userinfo->block) || !empty($userinfo->activation)) {
             $status['error'][] = Text::_('FUSION_BLOCKED_USER');
         } else {
-            if (defined('externalpage')) {
-                define('externalpage', true);
-            }
-	        require_once $this->params->get('source_path') . 'engine/start.php';
+	        $this->helper->loadEngine();
             // Get variables
             global $CONFIG;
             // Action Gatekeep not necessary as person should already be validated by Joomla!
@@ -259,10 +255,7 @@ class User extends \JFusion\Plugin\User
 		    } else {
 			    $user->usergroup = $usergroup;
 		    }
-		    if (defined('externalpage')) {
-			    define('externalpage', true);
-		    }
-		    require_once $this->params->get('source_path') . 'engine/start.php';
+		    $this->helper->loadEngine();
 		    // Get variables
 		    global $CONFIG;
 		    $username = $user->username;
@@ -331,10 +324,7 @@ class User extends \JFusion\Plugin\User
      */
     function blockUser(Userinfo $userinfo, Userinfo &$existinguser)
     {
-    	if (defined('externalpage')) {
-        	define('externalpage', true);	
-        }
-	    require_once $this->params->get('source_path') . 'engine/start.php';
+	    $this->helper->loadEngine();
         // Get variables
         global $CONFIG;
         $user = get_user_by_username($existinguser->username);
@@ -364,10 +354,7 @@ class User extends \JFusion\Plugin\User
 	 */
     function unblockUser(Userinfo $userinfo, Userinfo &$existinguser)
     {
-    	if (defined('externalpage')) {
-        	define('externalpage', true);	
-        }
-	    require_once $this->params->get('source_path') . 'engine/start.php';
+	    $this->helper->loadEngine();
         // Get variables
         global $CONFIG;
         $user = get_user_by_username($existinguser->username);
@@ -392,10 +379,7 @@ class User extends \JFusion\Plugin\User
      * @return void
      */
     function activateUser(Userinfo $userinfo, Userinfo &$existinguser) {
-    	if (defined('externalpage')) {
-        	define('externalpage', true);	
-        }
-	    require_once $this->params->get('source_path') . 'engine/start.php';
+	    $this->helper->loadEngine();
         // Get variables
         global $CONFIG;
         $user = get_user_by_username($existinguser->username);
@@ -420,10 +404,7 @@ class User extends \JFusion\Plugin\User
      * @return void
      */
     function inactivateUser(Userinfo $userinfo, Userinfo &$existinguser) {
-		if (defined('externalpage')) {
-        	define('externalpage', true);	
-        }
-	    require_once $this->params->get('source_path') . 'engine/start.php';
+	    $this->helper->loadEngine();
         // Get variables
         global $CONFIG;
         $user = get_user_by_username($existinguser->username);
