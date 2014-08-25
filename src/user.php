@@ -57,7 +57,7 @@ class User extends \JFusion\Plugin\User
 		    $query = $db->getQuery(true)
 			    ->select('guid as userid, username, name, name as lastname, email, password, salt as password_salt, banned as block')
 			    ->from('#__users_entity')
-		        ->where($identifier_type . ' = ' . $db->quote($identifier));
+		        ->where($db->quoteName($identifier_type) . ' = ' . $db->quote($identifier));
 
 		    $db->setQuery($query);
 		    $result = $db->loadObject();
@@ -214,7 +214,6 @@ class User extends \JFusion\Plugin\User
 		    ->where('guid = ' . (int)$existinguser->userid);
 
 	    $db->setQuery($query);
-
 	    $db->execute();
 
 	    $this->debugger->addDebug(Text::_('PASSWORD_UPDATE') . ' ' . substr($existinguser->password, 0, 6) . '********');
