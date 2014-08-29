@@ -203,7 +203,7 @@ class User extends \JFusion\Plugin\User
      * @return void
      */
     function updatePassword(Userinfo $userinfo, Userinfo &$existinguser) {
-	    $existinguser->password_salt = Framework::genRandomPassword(8);
+	    $existinguser->password_salt = $this->genRandomPassword(8);
 	    $existinguser->password = md5($userinfo->password_clear . $existinguser->password_salt);
 	    $db = Factory::getDatabase($this->getJname());
 
@@ -242,7 +242,7 @@ class User extends \JFusion\Plugin\User
 			    $user->password = $userinfo->password_clear;
 		    } else {
 			    //generate a random one for now
-			    $user->password = Framework::genRandomPassword(12);
+			    $user->password = $this->genRandomPassword(12);
 		    }
 		    /**
 		     * @TODO add usergroup functionality
