@@ -146,53 +146,49 @@ class User extends \JFusion\Plugin\User
 	    }
         $status = array('error' => array(), 'debug' => array());
 
-        if (!empty($userinfo->block) || !empty($userinfo->activation)) {
-            $status['error'][] = Text::_('FUSION_BLOCKED_USER');
-        } else {
-	        $this->helper->loadEngine();
-            // Get variables
-            global $CONFIG;
-            // Action Gatekeep not necessary as person should already be validated by Joomla!
-            //action_gatekeeper();
-            //Get username and password
-            $username = $userinfo->username;
-            $password = $userinfo->password_clear;
-            $persistent = true;
-            // If all is present and correct, try to log in
-            if (!empty($username) && !empty($password)) {
-                $auth = elgg_authenticate($username, $password);
-                if ($auth===true) {
-	                $user = get_user_by_username($userinfo->username);
-                    //if ($user->isBanned()) return false; // User is banned, return false.
-                    $_SESSION['user'] = $user;
-                    $_SESSION['guid'] = $user->getGUID();
-                    $_SESSION['id'] = $_SESSION['guid'];
-                    $_SESSION['username'] = $user->username;
-                    $_SESSION['name'] = $user->name;
-                    $code = (md5($user->name . $user->username . time() . rand()));
-                    $user->code = md5($code);
-                    $_SESSION['code'] = $code;
-                    if (($persistent)) $status[LogLevel::DEBUG][] = $this->addCookie('elggperm', $code, (86400 * 30), '/', $this->params->get('cookie_domain'));
-                    if (!$user->save() || !elgg_trigger_event('login', 'user', $user)) {
-                        unset($_SESSION['username']);
-                        unset($_SESSION['name']);
-                        unset($_SESSION['code']);
-                        unset($_SESSION['guid']);
-                        unset($_SESSION['id']);
-                        unset($_SESSION['user']);
-                        $status[LogLevel::DEBUG][] = $this->addCookie('elggperm', '', -3600, '/', $this->params->get('cookie_domain'));
-                    } else {
-                        // Users privilege has been elevated, so change the session id (help prevent session hijacking)
-                        //session_regenerate_id();
-                        // Update statistics
-                        set_last_login($_SESSION['guid']);
-                        reset_login_failure_count($user->guid); // Reset any previous failed login attempts
-                    }
-                } else {
-	                $status['error'][] = $auth;
-                }
-            }
-        }
+	    $this->helper->loadEngine();
+	    // Get variables
+	    global $CONFIG;
+	    // Action Gatekeep not necessary as person should already be validated by Joomla!
+	    //action_gatekeeper();
+	    //Get username and password
+	    $username = $userinfo->username;
+	    $password = $userinfo->password_clear;
+	    $persistent = true;
+	    // If all is present and correct, try to log in
+	    if (!empty($username) && !empty($password)) {
+		    $auth = elgg_authenticate($username, $password);
+		    if ($auth === true) {
+			    $user = get_user_by_username($userinfo->username);
+			    //if ($user->isBanned()) return false; // User is banned, return false.
+			    $_SESSION['user'] = $user;
+			    $_SESSION['guid'] = $user->getGUID();
+			    $_SESSION['id'] = $_SESSION['guid'];
+			    $_SESSION['username'] = $user->username;
+			    $_SESSION['name'] = $user->name;
+			    $code = (md5($user->name . $user->username . time() . rand()));
+			    $user->code = md5($code);
+			    $_SESSION['code'] = $code;
+			    if (($persistent)) $status[LogLevel::DEBUG][] = $this->addCookie('elggperm', $code, (86400 * 30), '/', $this->params->get('cookie_domain'));
+			    if (!$user->save() || !elgg_trigger_event('login', 'user', $user)) {
+				    unset($_SESSION['username']);
+				    unset($_SESSION['name']);
+				    unset($_SESSION['code']);
+				    unset($_SESSION['guid']);
+				    unset($_SESSION['id']);
+				    unset($_SESSION['user']);
+				    $status[LogLevel::DEBUG][] = $this->addCookie('elggperm', '', -3600, '/', $this->params->get('cookie_domain'));
+			    } else {
+				    // Users privilege has been elevated, so change the session id (help prevent session hijacking)
+				    //session_regenerate_id();
+				    // Update statistics
+				    set_last_login($_SESSION['guid']);
+				    reset_login_failure_count($user->guid); // Reset any previous failed login attempts
+			    }
+		    } else {
+			    throw new RuntimeException($auth);
+		    }
+	    }
         return $status;
     }
 
