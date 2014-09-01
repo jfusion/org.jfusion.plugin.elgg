@@ -130,13 +130,14 @@ class User extends \JFusion\Plugin\User
         return array();
     }
 
-    /**
-     * @param Userinfo $userinfo
-     * @param array $options
-     * @param bool $framework
-     *
-     * @return array
-     */
+	/**
+	 * @param Userinfo $userinfo
+	 * @param array    $options
+	 * @param bool     $framework
+	 *
+	 * @throws \RuntimeException
+	 * @return array
+	 */
     function createSession(Userinfo $userinfo, $options, $framework = true) {
         //destroy a cookie if it exists already, this will prevent the person logging in from having to refresh twice to appear as logged in
 	    try {
