@@ -12,6 +12,7 @@
 use JFusion\Factory;
 use JFusion\Framework;
 
+use JFusion\User\Groups;
 use Joomla\Language\Text;
 
 use Psr\Log\LogLevel;
@@ -167,7 +168,7 @@ class Admin extends \JFusion\Plugin\Admin
     function getDefaultUsergroup()
     {
         //Only seems to be 2 usergroups in elgg (without any acl setup): Administrator, and user.  So just return 'user'
-	    $usergroups = Framework::getUserGroups($this->getJname(), true);
+	    $usergroups = Groups::get($this->getJname(), true);
 	    if ($usergroups !== null) {
 		    $group = 'user';
 	    } else {
